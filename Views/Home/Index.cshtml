@@ -11,9 +11,9 @@
                 @foreach (var item in Model)
                 {
                 <li class="list-group-item">
-                    <p>@item.Nome</p>
-                    <p>@item.Idade</p>
-                    <p>@item.UF</p>
+                    <p>@item.Nome - @item.Idade - @item.UF</p>
+                    
+                    
                 </li>
                 }
             </ul>
@@ -22,11 +22,11 @@
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <script type="text/javascript">
         let arrayPessoas = @Html.Raw(Json.Serialize(
-            ((List<Pessoa>)ViewBag.JPessoas).Select(user => new
+            (Model).Select(user => new
                 {
                     userIdade = user.Idade,
-                    userId = user.Nome
-
+                    userId = user.Nome,
+                    userUF = user.UF
                 })
         ));
         console.log(arrayPessoas);
@@ -35,8 +35,8 @@
 
         for (let index = 0; index < arrayPessoas.length; index++) {
             const element = arrayPessoas[index];
-            y.push(element.userIdade);
             x.push(element.userId);
+            y.push(element.userIdade);
         }
         
         var myConfig = {

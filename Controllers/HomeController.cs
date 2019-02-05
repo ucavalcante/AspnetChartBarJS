@@ -20,7 +20,6 @@ namespace aspnetmvc002.Controllers
                 var p = session.Query<Pessoa>().ToList();
                 pessoas.AddRange(p);
             }
-            ViewBag.JPessoas = pessoas;
             return View("Index", pessoas);
         }
 
