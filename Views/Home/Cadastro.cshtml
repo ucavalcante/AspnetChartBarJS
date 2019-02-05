@@ -1,0 +1,34 @@
+@model aspnetmvc002.Models.Pessoa
+
+<div>
+    @using (Html.BeginForm("Cadastro","Home",FormMethod.Post))
+    {
+        <div class="form-group">
+            <table >
+            <tr>
+                <p>Detalhes pessoais</p>
+            </tr>  
+            <tr>
+                <td>Nome</td>
+                <td>
+                    <input class="form-control" name="Nome" id="Nome" type="text" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>Idade</td>
+                <td>
+                    <input class="form-control" name="Idade" id="Idade" type="text" value="">
+                </td>
+            </tr>
+            <tr>
+                <td>UF</td>
+                <td>
+                    <input class="form-control" name="UF" id="UF" type="text" value="">
+                </td>
+            </tr>
+            <td></td>
+                    <td><input class="btn btn-primary" type="submit" value="Submit"/></td>
+            </table>
+        </div>
+    }
+</div>
