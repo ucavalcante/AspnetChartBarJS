@@ -12,8 +12,12 @@
                 {
                 <li class="list-group-item">
                     <p>@item.Nome - @item.Idade - @item.UF</p>
-                    
-                    
+                    <p>@item.Id</p>
+                    @using (Html.BeginForm("ApagarPessoa", "Home"))
+                    {
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <input type="submit" value="Apagar" />
+                    }
                 </li>
                 }
             </ul>

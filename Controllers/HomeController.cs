@@ -43,7 +43,21 @@ namespace aspnetmvc002.Controllers
 
             return RedirectToAction("Index");
         }
-
+        public IActionResult ApagarPessoa(string id)
+        {
+            var store = EmbeddedServer.Instance.GetDocumentStore("Pessoas");
+            using (var session = store.OpenSession())
+            {
+                var p = new Pessoa();
+                p = session.Load<Pessoa>(id);
+                if (p != null)
+                {
+                    session.Delete(p);
+                    session.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index");
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -53,6 +67,14 @@ namespace aspnetmvc002.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Raven()
+        {
+            var x = EmbeddedServer.Instance.GetServerUriAsync();
+
+
+            return Redirect(x.Result.AbsoluteUri);
         }
     }
 }
