@@ -25,12 +25,9 @@ namespace aspnetmvc002
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting(routes =>
+            app.Run(async (context) =>
             {
-                routes.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                await context.Response.WriteAsync("Hello World!");
             });
         }
     }
