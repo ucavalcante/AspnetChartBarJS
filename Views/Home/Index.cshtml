@@ -1,8 +1,32 @@
-﻿@{
+﻿@model List<aspnetmvc002.Models.Pessoa>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div>
+        <ul class="list-group">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item">
+                    <p>@item.Nome</p>
+                    <p>@item.Idade</p>
+                    <p>@item.UF</p>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
+<script type="text/javascript">
+var array = @Html.Raw(Json.Serialize(
+    ((List<Pessoa>)ViewBag.JPessoas).Select(user => new 
+            { 
+                userId = user.Nome ,
+                userIdade = user.Idade,
+                userUF = user.UF
+            })
+));
+console.log(array);
+</script>

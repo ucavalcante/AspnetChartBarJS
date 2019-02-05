@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Raven.Embedded;
 
 namespace aspnetmvc002
 {
@@ -17,6 +18,7 @@ namespace aspnetmvc002
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            EmbeddedServer.Instance.StartServer();
         }
 
         public IConfiguration Configuration { get; }
