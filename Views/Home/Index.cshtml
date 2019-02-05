@@ -1,32 +1,47 @@
 ﻿@model List<aspnetmvc002.Models.Pessoa>
 
-@{
+    @{
     ViewData["Title"] = "Home Page";
-}
+    }
+    <div id="grafico"></div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <div>
-        <ul class="list-group">
-            @foreach (var item in Model)
-            {
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <div>
+            <ul class="list-group">
+                @foreach (var item in Model)
+                {
                 <li class="list-group-item">
                     <p>@item.Nome</p>
                     <p>@item.Idade</p>
                     <p>@item.UF</p>
                 </li>
-            }
-        </ul>
+                }
+            </ul>
+        </div>
     </div>
-</div>
-<script type="text/javascript">
-var array = @Html.Raw(Json.Serialize(
-    ((List<Pessoa>)ViewBag.JPessoas).Select(user => new 
-            { 
-                userId = user.Nome ,
-                userIdade = user.Idade,
-                userUF = user.UF
-            })
-));
-console.log(array);
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script type="text/javascript">
+        var arrayPessoas = @Html.Raw(Json.Serialize(
+            ((List<Pessoa>)ViewBag.JPessoas).Select(user => new
+                {
+                    userIdade = user.Idade,
+                    userId = user.Nome
+                    
+                })
+        ));
+        console.log(arrayPessoas);
+
+        // create a chart
+        chart = anychart.bar();
+
+        // create a bar series and set the data
+        var series = chart.bar(arrayPessoas);
+
+        // set the container id
+        chart.container("grafico");
+
+        // initiate drawing the chart
+        chart.draw();
+
+    </script>
