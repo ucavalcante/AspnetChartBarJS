@@ -3,10 +3,9 @@
     @{
     ViewData["Title"] = "Home Page";
     }
-    <div id="grafico"></div>
-
     <div class="text-center">
         <h1 class="display-4">Welcome</h1>
+        <div id="myChart"></div>
         <div>
             <ul class="list-group">
                 @foreach (var item in Model)
@@ -20,28 +19,44 @@
             </ul>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <script type="text/javascript">
-        var arrayPessoas = @Html.Raw(Json.Serialize(
+        let arrayPessoas = @Html.Raw(Json.Serialize(
             ((List<Pessoa>)ViewBag.JPessoas).Select(user => new
                 {
                     userIdade = user.Idade,
                     userId = user.Nome
-                    
+
                 })
         ));
         console.log(arrayPessoas);
+        let x = [];
+        let y = [];
 
-        // create a chart
-        chart = anychart.bar();
+        for (let index = 0; index < arrayPessoas.length; index++) {
+            const element = arrayPessoas[index];
+            y.push(element.userIdade);
+            x.push(element.userId);
+        }
+        
+        var myConfig = {
+            type: "bar",
+            plotarea: {
+                adjustLayout: true
+            },
+            scaleX: {
+                labels: x
+            },
+            series: [
+                {
+                    values: y
+                }
+            ]
+        };
 
-        // create a bar series and set the data
-        var series = chart.bar(arrayPessoas);
-
-        // set the container id
-        chart.container("grafico");
-
-        // initiate drawing the chart
-        chart.draw();
+        zingchart.render({
+            id: 'myChart',
+            data: myConfig
+        });
 
     </script>
